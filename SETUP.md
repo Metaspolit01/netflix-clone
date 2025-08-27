@@ -1,4 +1,175 @@
-# Netflix Clone Setup Guide
+# Netflix Clone - Setup Guide
+
+## Prerequisites
+
+### Required Software
+1. **Node.js and npm**
+   - Install Node.js 20.x or later from [nodejs.org](https://nodejs.org/)
+   - Verify installation:
+     ```bash
+     node --version
+     npm --version
+     ```
+
+2. **Docker**
+   - Install Docker Desktop from [docker.com](https://www.docker.com/products/docker-desktop)
+   - Verify installation:
+     ```bash
+     docker --version
+     docker-compose --version
+     ```
+
+3. **Git**
+   - Install from [git-scm.com](https://git-scm.com/)
+   - Verify installation:
+     ```bash
+     git --version
+     ```
+
+### API Access
+1. **TMDB API Key**
+   - Create account at [themoviedb.org](https://www.themoviedb.org/)
+   - Navigate to Settings → API
+   - Generate API key
+   - Copy the key for configuration
+
+## Installation
+
+### Local Development Setup
+
+1. **Clone Repository**
+   ```bash
+   git clone https://github.com/Metaspolit01/devops-Netflix-clone.git
+   cd devops-Netflix-clone
+   ```
+
+2. **Environment Configuration**
+   ```bash
+   # Copy example environment file
+   cp .env.example .env
+
+   # Edit .env and add your TMDB API key
+   NEXT_PUBLIC_TMDB_API_KEY=your_api_key_here
+   TMDB_API_KEY=your_api_key_here
+   ```
+
+3. **Install Dependencies**
+   ```bash
+   npm install
+   ```
+
+4. **Start Development Server**
+   ```bash
+   npm run dev
+   ```
+
+5. **Access Application**
+   - Open browser to [http://localhost:3000](http://localhost:3000)
+
+### Docker Setup
+
+1. **Build and Run Containers**
+   ```bash
+   docker-compose up --build
+   ```
+
+2. **Access Dockerized App**
+   - Open [http://localhost:3000](http://localhost:3000)
+
+3. **Stop Containers**
+   ```bash
+   docker-compose down
+   ```
+
+## Production Deployment
+
+### Standard Deployment
+
+1. **Build Application**
+   ```bash
+   npm run build
+   ```
+
+2. **Start Production Server**
+   ```bash
+   npm start
+   ```
+
+### Docker Production Deployment
+
+1. **Build Production Image**
+   ```bash
+   docker-compose -f docker-compose.yml up --build
+   ```
+
+2. **Environment Variables**
+   - Ensure all required environment variables are set
+   - Use `.env` file or container environment
+
+## Project Structure
+
+```
+Netflix-Clone-main/
+├── app/                 # Next.js app directory
+├── components/         # React components
+├── lib/               # Utility functions
+├── public/           # Static assets
+└── ... configuration files
+```
+
+## Common Issues & Solutions
+
+### Development Issues
+
+1. **Port Already in Use**
+   ```bash
+   # Find process using port 3000
+   netstat -ano | findstr :3000
+   # Kill process
+   taskkill /PID <process_id> /F
+   ```
+
+2. **Node Modules Issues**
+   ```bash
+   # Clean install
+   rm -rf node_modules
+   rm package-lock.json
+   npm install
+   ```
+
+### Docker Issues
+
+1. **Container Access Issues**
+   ```bash
+   # Reset Docker environment
+   docker-compose down
+   docker system prune
+   docker-compose up --build
+   ```
+
+2. **Build Issues**
+   ```bash
+   # Clean Docker cache
+   docker builder prune
+   ```
+
+## Additional Resources
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Docker Documentation](https://docs.docker.com/)
+- [TMDB API Docs](https://developers.themoviedb.org/3)
+
+## Security Notes
+
+1. **API Key Protection**
+   - Never commit `.env` file
+   - Use environment variables in production
+   - Rotate API keys regularly
+
+2. **Docker Security**
+   - Keep base images updated
+   - Use non-root user
+   - Implement resource limits
 
 ## Option 1: Simple HTML Version (Recommended for Quick Start)
 
@@ -58,7 +229,7 @@
 
 The project uses The Movie Database (TMDB) API with the following key:
 ```
-TMDB_API_KEY=e87bb8225a9fe4a45bf6196f7c0abb07
+TMDB_API_KEY= yourapi key
 ```
 
 This key is already configured in both versions of the application.
