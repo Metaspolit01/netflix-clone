@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix Clone</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'netflix-red': '#E50914',
+                        'netflix-black': '#141414',
+                        'netflix-gray': '#564d4d',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 transition-colors duration-300" id="navbar">
+        <div class="flex items-center justify-between px-4 lg:px-16 py-6">
+            <!-- Logo -->
+            <div class="flex items-center space-x-8">
+                <div class="text-red-600 text-2xl font-bold">NETFLIX</div>
+                <ul class="hidden lg:flex space-x-8 text-white">
+                    <li class="cursor-pointer hover:text-gray-300 transition">Home</li>
+                    <li class="cursor-pointer hover:text-gray-300 transition">TV Shows</li>
+                    <li class="cursor-pointer hover:text-gray-300 transition">Movies</li>
+                    <li class="cursor-pointer hover:text-gray-300 transition">New & Popular</li>
+                    <li class="cursor-pointer hover:text-gray-300 transition">My List</li>
+                </ul>
+            </div>
+
+            <!-- Right side -->
+            <div class="flex items-center space-x-4">
+                <i class="fas fa-search text-white text-xl cursor-pointer hover:text-gray-300 transition"></i>
+                <i class="fas fa-bell text-white text-xl cursor-pointer hover:text-gray-300 transition"></i>
+                <div class="flex items-center space-x-2 cursor-pointer">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png" 
+                         alt="Profile" class="w-8 h-8 rounded">
+                    <i class="fas fa-chevron-down text-white text-sm"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div id="hero-section" class="relative h-screen w-full">
+        <div class="absolute inset-0">
+            <img id="hero-image" src="" alt="" class="w-full h-full object-cover">
+            <div class="absolute inset-0 hero-gradient"></div>
+        </div>
+
+        <div class="relative z-20 flex flex-col justify-center h-full px-4 lg:px-16 max-w-2xl">
+            <h1 id="hero-title" class="text-4xl md:text-6xl font-bold text-white mb-4"></h1>
+            <p id="hero-overview" class="text-lg md:text-xl text-white mb-8 leading-relaxed"></p>
+
+            <div class="flex items-center space-x-4">
+                <button class="flex items-center space-x-2 bg-white text-black px-8 py-3 rounded font-bold text-lg hover:bg-gray-200 transition">
+                    <i class="fas fa-play"></i>
+                    <span>Play</span>
+                </button>
+                
+                <button class="flex items-center space-x-2 bg-gray-600/50 text-white px-8 py-3 rounded font-bold text-lg hover:bg-gray-600/70 transition">
+                    <i class="fas fa-info-circle"></i>
+                    <span>More Info</span>
+                </button>
+            </div>
+
+            <div id="hero-info" class="flex items-center space-x-4 mt-6 text-white">
+                <span id="hero-match" class="text-green-400 font-bold"></span>
+                <span id="hero-year"></span>
+                <span class="border border-gray-400 px-1 text-sm">HD</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Movie Rows -->
+    <div class="pb-20">
+        <div id="trending-row" class="px-4 lg:px-16 mb-8">
+            <h2 class="text-white text-xl lg:text-2xl font-bold mb-4">Trending Now</h2>
+            <div class="relative group">
+                <div class="flex space-x-4 overflow-x-scroll scrollbar-hide py-2" id="trending-movies">
+                    <!-- Movies will be populated here -->
+                </div>
+            </div>
+        </div>
+
+        <div id="popular-row" class="px-4 lg:px-16 mb-8">
+            <h2 class="text-white text-xl lg:text-2xl font-bold mb-4">Popular Movies</h2>
+            <div class="relative group">
+                <div class="flex space-x-4 overflow-x-scroll scrollbar-hide py-2" id="popular-movies">
+                    <!-- Movies will be populated here -->
+                </div>
+            </div>
+        </div>
+
+        <div id="top-rated-row" class="px-4 lg:px-16 mb-8">
+            <h2 class="text-white text-xl lg:text-2xl font-bold mb-4">Top Rated</h2>
+            <div class="relative group">
+                <div class="flex space-x-4 overflow-x-scroll scrollbar-hide py-2" id="top-rated-movies">
+                    <!-- Movies will be populated here -->
+                </div>
+            </div>
+        </div>
+
+        <div id="action-row" class="px-4 lg:px-16 mb-8">
+            <h2 class="text-white text-xl lg:text-2xl font-bold mb-4">Action Movies</h2>
+            <div class="relative group">
+                <div class="flex space-x-4 overflow-x-scroll scrollbar-hide py-2" id="action-movies">
+                    <!-- Movies will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_KEY = '{{ env "TMDB_API_KEY" }}'; //create an env variable and place your apikey there
+        const BASE_URL = 'https://api.themoviedb.org/3';
+        const IMG_BASE_URL = 'https://image.tmdb.org/t/p/w500';
+        const BACKDROP_BASE_URL = 'https://image.tmdb.org/t/p/original';
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 0) {
+                navbar.classList.add('bg-black');
+            } else {
+                navbar.classList.remove('bg-black');
+            }
+        });
+
+        // Fetch movies from TMDB API
+        async function fetchMovies(endpoint) {
+            try {
+                const response = await fetch(`${BASE_URL}${endpoint}?api_key=${API_KEY}`);
+                const data = await response.json();
+                return data.results;
+            } catch (error) {
+                console.error('Error fetching movies:', error);
+                return [];
+            }
+        }
+
+        // Create movie card HTML
+        function createMovieCard(movie) {
+            const posterUrl = movie.poster_path ? `${IMG_BASE_URL}${movie.poster_path}` : '/placeholder-movie.jpg';
+            const year = new Date(movie.release_date).getFullYear();
+            const match = Math.round(movie.vote_average * 10);
+
+            return `
+                <div class="flex-none movie-card cursor-pointer" data-movie-id="${movie.id}">
+                    <div class="w-48">
+                        <img src="${posterUrl}" alt="${movie.title}" 
+                             class="w-full h-72 object-cover rounded"
+                             onerror="this.src='/placeholder-movie.jpg'">
+                        <div class="mt-2">
+                            <h3 class="text-white font-bold text-sm truncate">${movie.title}</h3>
+                            <div class="flex items-center space-x-2 text-xs text-gray-300 mt-1">
+                                <span>${year}</span>
+                                <span>•</span>
+                                <span class="text-green-400">${match}% Match</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Populate movie row
+        async function populateMovieRow(endpoint, containerId) {
+            const container = document.getElementById(containerId);
+            const movies = await fetchMovies(endpoint);
+            
+            if (movies.length === 0) {
+                container.innerHTML = '<p class="text-gray-400">No movies found</p>';
+                return;
+            }
+
+            container.innerHTML = movies.map(movie => createMovieCard(movie)).join('');
+        }
+
+        // Set up hero section
+        async function setupHeroSection() {
+            const movies = await fetchMovies('/trending/movie/week');
+            if (movies.length === 0) return;
+
+            const randomMovie = movies[Math.floor(Math.random() * movies.length)];
+            
+            document.getElementById('hero-image').src = `${BACKDROP_BASE_URL}${randomMovie.backdrop_path}`;
+            document.getElementById('hero-title').textContent = randomMovie.title;
+            document.getElementById('hero-overview').textContent = randomMovie.overview.length > 150 
+                ? randomMovie.overview.substring(0, 150) + '...' 
+                : randomMovie.overview;
+            document.getElementById('hero-match').textContent = `${Math.round(randomMovie.vote_average * 10)}% Match`;
+            document.getElementById('hero-year').textContent = new Date(randomMovie.release_date).getFullYear();
+        }
+
+        // Initialize the page
+        async function init() {
+            // Setup hero section
+            await setupHeroSection();
+
+            // Populate movie rows
+            await populateMovieRow('/trending/movie/week', 'trending-movies');
+            await populateMovieRow('/movie/popular', 'popular-movies');
+            await populateMovieRow('/movie/top_rated', 'top-rated-movies');
+            await populateMovieRow('/discover/movie?with_genres=28', 'action-movies');
+        }
+
+        // Start the application
+        init();
+    </script>
+</body>
+</html>

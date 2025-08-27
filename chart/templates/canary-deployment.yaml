@@ -1,0 +1,28 @@
+{{- if .Values.canary.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: netflix-clone-canary
+spec:
+  replicas: {{ .Values.canary.replicaCount }}
+  selector:
+    matchLabels:
+      app: netflix-clone-canary
+  template:
+    metadata:
+      labels:
+        app: netflix-clone-canary
+    spec:
+      containers:
+        - name: netflix-clone-canary
+          image: {{ .Values.canary.image.repository }}:{{ .Values.canary.image.tag }}
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+{{- end }}
