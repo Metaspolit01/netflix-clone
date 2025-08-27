@@ -1,6 +1,71 @@
 # Netflix Clone
 
-A fully functional Netflix clone built with Next.js 14, TypeScript, and Tailwind CSS, powered by The Movie Database (TMDB) API.
+# Netflix Clone
+
+A modern Netflix clone built with Next.js, TypeScript, TailwindCSS, and Docker. This project demonstrates a fully responsive streaming platform with real movie data from TMDB API.
+
+## Features
+
+- 🎬 Real-time movie data from TMDB API
+- 🎨 Netflix-like UI/UX with TailwindCSS
+- 📱 Fully responsive design
+- 🐳 Containerized with Docker
+- 🚀 Production-ready with standalone Next.js build
+- 🔒 Environment variable protection
+- 🎯 TypeScript for type safety
+
+## Tech Stack
+
+- **Frontend**: Next.js 14, React, TypeScript
+- **Styling**: TailwindCSS
+- **API**: TMDB (The Movie Database)
+- **Container**: Docker
+- **Deployment**: Docker Compose
+- **CI/CD**: GitHub Actions (coming soon)
+- **Infrastructure**: Kubernetes Ready
+
+## Quick Start
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Metaspolit01/devops-Netflix-clone.git
+   ```
+
+2. Create `.env` file:
+   ```bash
+   cp .env.example .env
+   # Add your TMDB API key to .env
+   ```
+
+3. Run with Docker:
+   ```bash
+   docker-compose up --build
+   ```
+
+4. Open [http://localhost:3000](http://localhost:3000)
+
+## Development
+
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+2. Start development server:
+   ```bash
+   npm run dev
+   ```
+
+## Production
+
+Build and run the production version:
+```bash
+docker-compose -f docker-compose.yml up --build
+```
+
+## License
+
+MIT License - Feel free to use this project for learning purposes!
 
 ## Features
 
