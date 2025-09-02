@@ -65,8 +65,7 @@ export interface Video {
 
 export const fetchMovies = async (endpoint: string): Promise<MovieResponse> => {
   try {
-    const url = `${BASE_URL}${endpoint}${endpoint.includes('?') ? '&' : '?'}api_key=${API_KEY}`;
-    const response = await fetch(url);
+    const response = await fetch(`/api/tmdb?endpoint=${encodeURIComponent(endpoint)}`);
     
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -82,8 +81,7 @@ export const fetchMovies = async (endpoint: string): Promise<MovieResponse> => {
 
 export const fetchMovieDetails = async (movieId: number): Promise<MovieDetails> => {
   try {
-    const url = `${BASE_URL}/movie/${movieId}?api_key=${API_KEY}`;
-    const response = await fetch(url);
+    const response = await fetch(`/api/tmdb?endpoint=/movie/${movieId}`);
     
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -99,8 +97,7 @@ export const fetchMovieDetails = async (movieId: number): Promise<MovieDetails> 
 
 export const fetchMovieVideos = async (movieId: number): Promise<VideoResponse> => {
   try {
-    const url = `${BASE_URL}/movie/${movieId}/videos?api_key=${API_KEY}`;
-    const response = await fetch(url);
+    const response = await fetch(`/api/tmdb?endpoint=/movie/${movieId}/videos`);
     
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -116,8 +113,7 @@ export const fetchMovieVideos = async (movieId: number): Promise<VideoResponse> 
 
 export const searchMovies = async (query: string): Promise<MovieResponse> => {
   try {
-    const url = `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}`;
-    const response = await fetch(url);
+    const response = await fetch(`/api/tmdb?endpoint=/search/movie&query=${encodeURIComponent(query)}`);
     
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);

@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: netflix-stable
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: netflix
+      version: stable
+  template:
+    metadata:
+      labels:
+        app: netflix
+        version: stable
+    spec:
+      containers:
+      - name: netflix
+        image: metasploiter05/netflix:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: NODE_ENV
+          value: "production"
+        - name: PORT
+          value: "3000"
+        - name: NEXT_PUBLIC_TMDB_API_KEY  # Added TMDB API key
+          valueFrom:
+            secretKeyRef:
+              name: netflix-secrets
+              key: TMDB_API_KEY
+        - name: TMDB_API_KEY  # Added server-side TMDB API key
+          valueFrom:
+            secretKeyRef:
+              name: netflix-secrets
+              key: TMDB_API_KEY
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "256Mi"
+          limits:
+            cpu: "200m"
+            memory: "512Mi"

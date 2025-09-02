@@ -4,6 +4,7 @@ const nextConfig = {
     domains: ['image.tmdb.org', 'themoviedb.org'],
   },
   env: {
+    NEXT_PUBLIC_TMDB_API_KEY: process.env.NEXT_PUBLIC_TMDB_API_KEY,
     TMDB_API_KEY: process.env.TMDB_API_KEY,
   },
   // Enable standalone output for Docker

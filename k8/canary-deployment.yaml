@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: netflix-canary
+  labels:
+    app: netflix
+    version: canary
+spec:
+  replicas: 1  # Canary typically runs fewer replicas
+  selector:
+    matchLabels:
+      app: netflix
+      version: canary
+  template:
+    metadata:
+      labels:
+        app: netflix
+        version: canary
+    spec:
+      containers:
+      - name: netflix
+        image: metasploiter05/netflix:canary  # You should tag your canary version
+        ports:
+        - containerPort: 3000
+        env:
+        - name: NODE_ENV
+          value: "production"
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "512Mi"
+          limits:
+            cpu: "500m"
+            memory: "1Gi"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 10
+          periodSeconds: 5
