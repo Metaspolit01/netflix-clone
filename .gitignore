@@ -69,4 +69,3 @@ pids
 .terraform/
 
 #k8
-secret.yaml
