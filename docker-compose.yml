@@ -5,10 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        - NEXT_PUBLIC_TMDB_API_KEY=${TMDB_API_KEY}
-        - TMDB_API_KEY=${TMDB_API_KEY}
-    image: netflix:latest
+    image: metasploiter05/netflix:latest
     container_name: netflix
     ports:
       - "3000:3000"
@@ -21,3 +18,4 @@ services:
       - TMDB_API_KEY=${TMDB_API_KEY}
     env_file:
       - .env
+
