@@ -8,8 +8,9 @@
 # Install Node.js 20.x
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt-get install -y nodejs
-
+```
 # Verify installation
+```bash
 node --version
 npm --version
 ```
@@ -19,11 +20,13 @@ npm --version
 # Install Docker
 sudo apt-get update
 sudo apt-get install docker.io
-
+```
+```bash
 # Start and enable Docker
 sudo systemctl start docker
 sudo systemctl enable docker
-
+```
+```bash
 # Add user to docker group
 sudo usermod -aG docker $USER
 ```
@@ -59,8 +62,9 @@ cd devops-Netflix-clone
 
 2. **Environment Setup**
 ```bash
-cp .env.example .env
-# Edit .env with your TMDB API key
+touch .env
+cd .env
+# Edit  TMDB API key=your api key
 ```
 
 3. **Development Server**
@@ -85,6 +89,8 @@ docker-compose up --build
 ```bash
 # Login to Azure
 az login
+```
+
 
 # Create AKS cluster
 ```bash
@@ -93,22 +99,32 @@ az aks create \
   --name netflix-aks \
   --node-count 2 \
   --enable-managed-identity
+```
 
 # Get credentials
+```bash
 az aks get-credentials --resource-group netflix-prod-rg --name netflix-aks
 ```
 
 or simply run terraform 
-```bash
   #go to terraform directory
+  ```bash
   cd terraform
+```
   # intialize terraform 
+  ```bash
   terraform init
-  # check terraform validation
-  terraform validate
+```
+# check terraform validation
+  ```bash
+terraform validate
+```
   #pre checking befor terraform creation
-  terraform plan
+  ```bash
+terraform plan
+```
   #run terraform script
+```bash
   terraform apply
 ```  
 
@@ -116,11 +132,13 @@ or simply run terraform
 ```bash
 # Apply configurations
 kubectl apply -f k8s/
+```
 
 # Verify deployment
+```bash
 kubectl get pods
 kubectl get svc
-kubectl ger ingress
+kubectl get ingress
 ```
 
 ## 🔍 Troubleshooting
