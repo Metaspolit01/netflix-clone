@@ -92,7 +92,7 @@ az login
 ```
 
 
-# Create AKS cluster
+### Create AKS cluster
 ```bash
 az aks create \
   --resource-group netflix-prod-rg \
@@ -101,29 +101,29 @@ az aks create \
   --enable-managed-identity
 ```
 
-# Get credentials
+### Get credentials
 ```bash
 az aks get-credentials --resource-group netflix-prod-rg --name netflix-aks
 ```
 
-or simply run terraform 
+###or simply run terraform 
   #go to terraform directory
   ```bash
   cd terraform
 ```
-  # intialize terraform 
+  ### intialize terraform 
   ```bash
   terraform init
 ```
-# check terraform validation
+### check terraform validation
   ```bash
 terraform validate
 ```
-  #pre checking befor terraform creation
+  ###pre checking befor terraform creation
   ```bash
 terraform plan
 ```
-  #run terraform script
+  ###run terraform script
 ```bash
   terraform apply
 ```  
@@ -134,14 +134,14 @@ terraform plan
 kubectl apply -f k8s/
 ```
 
-# Verify deployment
+### Verify deployment
 ```bash
 kubectl get pods
 kubectl get svc
 kubectl get ingress
 ```
 
-## 🔍 Troubleshooting
+### 🔍 Troubleshooting
 
 ### Common Issues
 
@@ -168,7 +168,7 @@ kubectl logs <pod-name>
 kubectl get events
 ```
 
-## 📚 Additional Resources
+### 📚 Additional Resources
 - [Next.js Documentation](https://nextjs.org/docs)
 - [Azure Kubernetes Service](https://docs.microsoft.com/en-us/azure/aks/)
 - [TMDB API Documentation](https://developers.themoviedb.org/3)
