@@ -119,11 +119,11 @@ az aks get-credentials --resource-group netflix-prod-rg --name netflix-aks
   ```bash
 terraform validate
 ```
-  ###pre checking befor terraform creation
+### pre checking befor terraform creation
   ```bash
 terraform plan
 ```
-  ###run terraform script
+  ### run terraform script
 ```bash
   terraform apply
 ```  
