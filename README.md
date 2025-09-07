@@ -64,7 +64,7 @@ docker-compose up --build -d #to run in backgroud
 ```
 
 ## ☁️ Production Deployment
-See [Deployment Guide](./docs/DEPLOYMENT.md) for AKS deployment instructions.
+See [Deployment Guide](docs/SETUP.md) for AKS deployment instructions.
 
 ## 📜 License
 MIT License
