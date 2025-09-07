@@ -24,12 +24,7 @@ spec:
           value: "production"
         - name: PORT
           value: "3000"
-        - name: NEXT_PUBLIC_TMDB_API_KEY  # Added TMDB API key
-          valueFrom:
-            secretKeyRef:
-              name: netflix-secrets
-              key: TMDB_API_KEY
-        - name: TMDB_API_KEY  # Added server-side TMDB API key
+        - name: TMDB_API_KEY  # Server-side TMDB API key
           valueFrom:
             secretKeyRef:
               name: netflix-secrets

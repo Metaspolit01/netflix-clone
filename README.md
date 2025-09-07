@@ -32,7 +32,6 @@ A modern Netflix clone built with Next.js, deployed on Azure Kubernetes Service 
 
 ## 🔑 Environment Variables
 ```bash
-NEXT_PUBLIC_TMDB_API_KEY=your_api_key
 TMDB_API_KEY=your_api_key
 ```
 
