@@ -70,4 +70,4 @@ Netflix-Clone/
 - Container health checks
 - Resource utilization
 - Auto-scaling metrics
-- Error tracking
+- Error tracking 
