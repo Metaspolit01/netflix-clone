@@ -2,10 +2,7 @@ version: '3.8'
 
 services:
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: metasploiter05/netflix:latest
+    image: metasploiter05/netflix:latest  # Use the image you pushed
     container_name: netflix
     ports:
       - "3000:3000"
@@ -18,4 +15,5 @@ services:
       - TMDB_API_KEY=${TMDB_API_KEY}
     env_file:
       - .env
+
 
